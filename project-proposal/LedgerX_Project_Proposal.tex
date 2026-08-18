@@ -1,0 +1,239 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,margin=0.82in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=1.45em,itemsep=2pt,topsep=2pt}
+\setlist[enumerate]{leftmargin=1.65em,itemsep=2pt,topsep=2pt}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}
+  {0.55em}
+  {}
+
+\titlespacing*{\section}{0pt}{11pt}{3pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+\begin{center}
+    {\Large\bfseries LedgerX -- Decentralized Web3 Asset Protection Protocol}\\[4pt]
+    {\normalsize Project Proposal for UCS503P}\\[2pt]
+    Submitted to: Nisha Thakur\\
+    Thapar Institute of Engineering and Technology\\[8pt]
+\end{center}
+
+\section{Higher-order goal \hfill \normalfont\itshape ...secondary framing}
+
+This project aims to improve security and trust in decentralized Web3 applications by reducing the risk of asset loss caused by malicious transactions, rug pulls, and suspicious wallet activity. While the topic is broader than any single blockchain application, the immediate engineering objective is to build a measurable and deployable security layer that combines automated anomaly detection with smart-contract-based asset protection.
+
+\section{Time-to-value \hfill \normalfont\itshape ...primary heuristic}
+
+\begin{itemize}
+    \item We will deliver meaningful increments quickly by first implementing the protected-wallet workflow, transaction monitoring, and the core security mechanism.
+
+    \item We will prioritize working security flows over unnecessary complexity, validating the system through controlled suspicious-activity scenarios and iterative testing.
+
+    \item Success is defined by what can be demonstrated in the first working version and then improved through testing, threat scenarios, and user feedback.
+\end{itemize}
+
+\section{Problem Statement}
+
+The decentralized nature of blockchain gives users direct control over their assets but also exposes them to risks such as fraudulent projects, malicious transactions, rug pulls, and unauthorized asset movement. Once a malicious transaction is executed, recovering funds can be extremely difficult or impossible.
+
+Common pain points include:
+
+\begin{itemize}
+    \item \textbf{Limited proactive protection:} users often have to identify suspicious activity themselves before approving a transaction.
+
+    \item \textbf{Irreversible transactions:} blockchain transactions generally cannot be reversed once confirmed, increasing the impact of malicious activity.
+
+    \item \textbf{Lack of continuous monitoring:} users may not have a simple mechanism that continuously evaluates wallet activity for abnormal behavior.
+
+    \item \textbf{Delayed response:} manual intervention may occur too late when a malicious transaction or rug-pull event is already underway.
+\end{itemize}
+
+\section{Proposed Solution \hfill \normalfont\itshape ...Software Proposition}
+
+\subsection{Overview}
+
+Build a decentralized Web3 security platform, \textbf{LedgerX}, with the following components:
+
+\begin{itemize}
+    \item \textbf{Protected wallet:} a wallet architecture with an additional security layer for monitored assets.
+
+    \item \textbf{Threat detection:} continuously analyze wallet and transaction activity to identify suspicious or abnormal behavior.
+
+    \item \textbf{Automated protection:} trigger predefined smart-contract actions when a threat condition is detected.
+
+    \item \textbf{Fund recovery:} provide a mechanism to secure vulnerable assets and recover them through the protocol's protection flow.
+
+    \item \textbf{Transaction dashboard:} provide users with visibility into wallet activity, detected events, and transaction history.
+\end{itemize}
+
+\subsection{Core workflow}
+
+\begin{enumerate}
+    \item User connects or creates a LedgerX-protected wallet.
+    \item The system monitors relevant wallet and transaction activity.
+    \item The anomaly detection layer evaluates activity and identifies suspicious behavior.
+    \item When a threat condition is triggered, the protection mechanism invokes the required smart-contract flow.
+    \item Vulnerable assets are secured through the recovery/protection mechanism and the user can review the event through the dashboard.
+\end{enumerate}
+
+\subsection{Operational constraints for an educational Web3 setting}
+
+\begin{itemize}
+    \item Keep the interface simple and usable for users with limited Web3 experience.
+    \item Use controlled testnet scenarios for demonstrating security and recovery flows.
+    \item Avoid claiming complete protection against every possible blockchain attack; focus on clearly defined threat scenarios.
+    \item Use established blockchain, wallet, and smart-contract tooling rather than inventing new infrastructure.
+\end{itemize}
+
+\section{Solution Approach \hfill \normalfont\itshape ...Engineering focus}
+
+This is an engineering course project, so the focus is on building a working security workflow rather than proposing a novel anomaly-detection algorithm.
+
+\subsection{Threat/anomaly detection \hfill \normalfont\itshape ...non-research}
+
+The detection layer will use predefined indicators and transaction behaviour to identify potentially suspicious activity. Examples include unusual transaction patterns, abnormal asset movement, or conditions associated with a monitored threat scenario.
+
+The system will use these signals to determine whether the protection flow should be activated, while keeping the detection logic explainable and testable.
+
+\subsection{Web and blockchain architecture \hfill \normalfont\itshape ...web3 solution}
+
+A practical architecture consists of:
+
+\begin{itemize}
+    \item \textbf{Frontend:} responsive Web3 interface for wallet connection, transaction visibility, alerts, and dashboard functionality.
+
+    \item \textbf{Application layer:} handles user interaction, monitoring logic, authentication where required, and communication with blockchain services.
+
+    \item \textbf{Smart contracts:} implement protected-wallet and asset-management logic and execute predefined protection actions.
+
+    \item \textbf{Blockchain layer:} records transactions and provides the decentralized execution environment.
+\end{itemize}
+
+\subsection{Testing and delivery}
+
+Testing will focus on controlled scenarios involving normal and suspicious transactions. The project will use repeatable development and deployment practices so that changes to the frontend, backend, and smart contracts can be validated before demonstration.
+
+\section{Evaluation Criterion \hfill \normalfont\itshape ...measurable and attributable}
+
+Success will be evaluated using measurable criteria tied to the core security workflow.
+
+\subsection{Primary evaluation metric}
+
+\textbf{Threat-response time:} time between the detection of a defined suspicious event and initiation of the corresponding protection mechanism.
+
+\begin{itemize}
+    \item The target is to demonstrate that the protection flow can be triggered automatically within the expected monitoring cycle.
+    \item Attribution will be based on application logs and blockchain transaction timestamps.
+\end{itemize}
+
+\subsection{Secondary evaluation metrics}
+
+\begin{itemize}
+    \item \textbf{Detection accuracy:} proportion of predefined test threats correctly identified.
+    \item \textbf{False-positive rate:} proportion of normal test transactions incorrectly flagged.
+    \item \textbf{Protection success rate:} percentage of defined threat scenarios in which the intended smart-contract protection flow executes successfully.
+    \item \textbf{Transaction visibility:} ability of users to review relevant wallet activity and security events through the dashboard.
+    \item \textbf{Reliability:} successful execution of the complete workflow across repeated controlled test scenarios.
+\end{itemize}
+
+\subsection{Pilot validation plan \hfill \normalfont\itshape ...high-level}
+
+The system will be validated using a collection of normal and simulated malicious transaction scenarios on a suitable test network. Each scenario will be logged and evaluated against the defined detection, response, and protection criteria.
+
+\section{Scalability \hfill \normalfont\itshape ...with foresight}
+
+The proposition should scale in both theoretical and practical senses.
+
+\begin{enumerate}
+    \item \textbf{Scalable theoretically:} the system should support increasing wallet and transaction activity through:
+    \begin{itemize}
+        \item separating frontend, application, and blockchain-facing components,
+        \item using efficient transaction queries and indexed data where applicable,
+        \item keeping application services stateless where possible.
+    \end{itemize}
+
+    \item \textbf{Operationally deployable practically:} the system should support:
+    \begin{itemize}
+        \item deployment on common cloud or platform-hosted infrastructure,
+        \item integration with managed databases or blockchain indexing services where required,
+        \item repeatable deployment of the frontend, application services, and smart contracts.
+    \end{itemize}
+\end{enumerate}
+
+\section{Engine availability heuristic}
+
+A mature set of tools and services is available to implement LedgerX as a Web3 security project:
+
+\begin{itemize}
+    \item React-based frontend for the user interface.
+    \item Solidity and established smart-contract development frameworks.
+    \item Ethereum-compatible blockchain/testnet for decentralized execution.
+    \item Web3 wallet and blockchain APIs for transaction interaction.
+    \item Node.js for application-side integration and services.
+    \item Testing and deployment tools for validating smart contracts and application workflows.
+\end{itemize}
+
+We will use these mature components to focus on security workflow design, correctness, testing, and measurable protection behaviour rather than inventing new blockchain infrastructure.
+
+\section{Project scope and deliverables \hfill \normalfont\itshape ...iteration-friendly}
+
+\subsection{Initial deliverable \hfill \normalfont\itshape ...first iteration}
+
+\begin{itemize}
+    \item LedgerX protected-wallet workflow.
+    \item Wallet connection and transaction visibility.
+    \item Basic anomaly/threat detection mechanism.
+    \item Core smart-contract protection flow.
+    \item Dashboard for wallet activity and security events.
+    \item Logging and timestamps for threat-response evaluation.
+\end{itemize}
+
+\subsection{Subsequent deliverables}
+
+\begin{itemize}
+    \item Improved anomaly detection and additional threat scenarios.
+    \item Fund recovery/protection workflow refinements.
+    \item Enhanced dashboard, alerts, and transaction history.
+    \item Improved testing coverage for smart contracts and application services.
+    \item Deployment and scalability improvements for a production-oriented demonstration.
+\end{itemize}
+
+\section{Risks and mitigations}
+
+\begin{itemize}
+    \item \textbf{False positives:} use controlled detection thresholds and validate suspicious events against normal transaction scenarios.
+
+    \item \textbf{Smart-contract vulnerabilities:} keep contract logic minimal, test extensively, and use established development and testing practices.
+
+    \item \textbf{Blockchain transaction delays:} evaluate the system using testnet conditions and clearly separate detection time from blockchain confirmation time.
+
+    \item \textbf{User trust and usability:} provide clear explanations of detected events and protection actions rather than hiding security decisions.
+
+    \item \textbf{Scope complexity:} restrict the initial implementation to clearly defined threat scenarios and expand only after the core workflow is stable.
+\end{itemize}
+
+\section{Summary}
+
+This project proposes \textbf{LedgerX}, a decentralized Web3 asset protection platform designed to reduce the impact of malicious transactions and rug-pull-like threats. It meets the course project objectives by emphasizing rapid delivery of a working security workflow, measurable evaluation through threat-response and protection metrics, and scalability through modular Web3 architecture.
+
+The project remains focused on practical engineering, combining anomaly detection, smart contracts, protected wallets, and a monitoring dashboard to provide an additional security layer for users interacting with decentralized applications.
+
+\end{document}
