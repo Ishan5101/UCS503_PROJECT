@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/src/components/Navbar"
 
 export const metadata: Metadata = {
-  title: "SaveMe Protocol",
+  title: "LedgerX",
   description: "Protect your funds from rug-pulls",
 };
 
