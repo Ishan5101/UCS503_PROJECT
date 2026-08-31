@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+:root {
+  --background: #031008;
+  --foreground: #f5f5f5;
+  --green: #8be3a7;
+  --border: #153322;
+  --muted: #6f7c73;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+  height: 90px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  background: var(--background);
+}
+
+.logo {
+  color: var(--green);
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+}
+
+.nav-links a {
+  color: #c6ccc8;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--green);
+}
+
+.connect-btn {
+  border: 1px solid var(--green);
+  background: transparent;
+  color: var(--green);
+  padding: 11px 22px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.connect-btn:hover {
+  background: var(--green);
+  color: #031008;
+}
+
+/* ================= HERO ================= */
+
+.home {
+  min-height: 100vh;
+}
+
+.hero {
+  min-height: 600px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 120px 0 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-content {
+  max-width: 650px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--green);
+}
+
+.hero p {
+  max-width: 540px;
+  margin-top: 28px;
+
+  color: #68756d;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.hero-btn {
+  margin-top: 28px;
+}
+
+/* ================= ETHEREUM VISUAL ================= */
+
+.ethereum-visual {
+  width: 260px;
+  height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.ethereum-text {
+  position: absolute;
+
+  width: 230px;
+  height: 230px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #f5f5f5;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  text-align: center;
+
+  border-radius: 50%;
+}
+
+.ethereum-logo {
+  font-size: 75px;
+  color: #5c665f;
+}
+
+/* ================= FEATURES ================= */
+
+.features-section {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 50px 0 100px;
+}
+
+.features-section h2 {
+  font-size: 28px;
+  margin-bottom: 28px;
+}
+
+.features-section h2 span {
+  background: var(--green);
+  color: #031008;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+}
+
+.feature-card {
+  min-height: 140px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  padding: 25px;
+
+  display: flex;
+  gap: 18px;
+
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #10291b;
+
+  font-size: 18px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+.feature-card p {
+  color: #e0e5e1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 25px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    padding: 80px 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 70px;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  .ethereum-visual {
+    align-self: center;
+  }
+
+  .features-section {
+    padding: 40px 25px 80px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
