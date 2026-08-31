@@ -1,5 +1,5 @@
 Project Description
-Guardiant is a decentralized Web3 security protocol designed to safeguard users' crypto assets from rug pulls and malicious activities. It employs smart contract automation paired with real-time anomaly detection to activate a self-destructing safety mechanism.
+LedgerX is a decentralized Web3 security protocol designed to safeguard users' crypto assets from rug pulls and malicious activities. It employs smart contract automation paired with real-time anomaly detection to activate a self-destructing safety mechanism.
 
 Our Protocol has an another name termed as SaveMe Protocol
 <img width="852" height="811" alt="image" src="https://github.com/user-attachments/assets/9d981d8c-41c8-4381-a109-11fbfe5cb9b5" />
