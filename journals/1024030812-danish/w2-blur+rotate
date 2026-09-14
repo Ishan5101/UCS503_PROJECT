@@ -1,0 +1,25 @@
+# Week 2: Frontend Animation Components
+
+## Objective
+
+The objective of Week 2 was to extend the LedgerX frontend with reusable
+animation components to improve the visual presentation and user
+experience of the application.
+
+## Work Done
+
+### Frontend Developer 2
+
+- Implemented the reusable BlurText animation component.
+- Implemented the Rotate animation component.
+- Prepared the animation components for use in the LedgerX landing page.
+- Improved the visual interaction and presentation of frontend content.
+
+## Files Added/Modified
+
+```text
+src/
+└── components/
+    └── animated/
+        ├── BlurText.tsx
+        └── Rotate.tsx

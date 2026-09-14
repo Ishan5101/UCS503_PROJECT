@@ -1,0 +1,18 @@
+### Frontend Developer 2
+
+The Week 1 frontend work focused on adding an initial visual animation
+to the LedgerX landing page.
+
+- Implemented the circular text animation component.
+- Added the reusable component for displaying security-related text
+  around the hero section.
+- Prepared the animation component for integration with the LedgerX
+  landing page.
+
+### Files Added/Modified
+
+```text
+src/
+└── components/
+    └── animated/
+        └── CircularText.tsx
