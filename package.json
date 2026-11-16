@@ -1,0 +1,30 @@
+{
+  "name": "ucs503_project",
+  "version": "1.0.0",
+  "description": "Project Description LedgerX is a decentralized Web3 security protocol designed to safeguard users' crypto assets from rug pulls and malicious activities. It employs smart contract automation paired with real-time anomaly detection to activate a self-destructing safety mechanism.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ishan5101/UCS503_PROJECT.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ishan5101/UCS503_PROJECT/issues"
+  },
+  "homepage": "https://github.com/Ishan5101/UCS503_PROJECT#readme",
+  "dependencies": {
+    "ai": "^7.0.173",
+    "clsx": "^2.1.1",
+    "mongodb": "^7.9.0",
+    "radix-ui": "^1.8.1",
+    "react-tabs": "^6.1.1",
+    "tailwind-merge": "^3.7.0"
+  }
+}
