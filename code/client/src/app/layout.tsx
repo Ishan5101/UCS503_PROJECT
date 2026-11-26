@@ -4,7 +4,7 @@ import { Providers } from './providers';
 import Navbar from '../components/Navbar';
 
 export const metadata = {
-  title: 'SaveMe',
+  title: 'LedgerX',
   description: 'Save your funds from rug-pulls',
 };
 
