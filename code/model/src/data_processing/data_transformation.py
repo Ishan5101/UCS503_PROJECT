@@ -33,7 +33,12 @@ class DataTransformer:
 
         :return: DataFrame with converted timestamps.
         """
-        self.df['timeStamp'] = pd.to_datetime(self.df['timeStamp'], unit='s', errors='coerce')
+        self.df = self.df.copy()
+        # errors='coerce' with unit='s' needs numeric input; the API delivers the
+        # UNIX timestamp as a string.
+        self.df['timeStamp'] = pd.to_datetime(
+            pd.to_numeric(self.df['timeStamp'], errors='coerce'), unit='s', errors='coerce'
+        )
         logger.info("Converted UNIX timestamps to human-readable datetime format.")
         return self.df
 
@@ -56,11 +61,16 @@ class DataTransformer:
 
     def transform_data(self):
         """
-        Applies all transformations: converts timestamps and normalizes numeric columns.
+        Applies all transformations: converts timestamps.
+
+        `value` is deliberately NOT min-max normalised here. Min-max is fitted on
+        whatever rows happen to be in the request, which made a score depend on a
+        transaction's neighbours (and produced NaN for a single-row request, since
+        max == min). Scaling belongs to the detector, which uses a scaler fitted
+        once at training time.
 
         :return: Fully transformed DataFrame.
         """
         self.convert_timestamp()
-        self.normalize_column('value')  # Example: Normalizing the 'value' column
         logger.info("Data transformation process completed successfully.")
         return self.df

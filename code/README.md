@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+## Project Description
+**Guardiant** is a decentralized Web3 security protocol designed to safeguard users' crypto assets from rug pulls and malicious activities. It employs smart contract automation paired with real-time anomaly detection to activate a self-destructing safety mechanism.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Our Protocol has an another name termed as **SaveMe Protocol**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![SaveMe Protocol Overview - visual selection](https://github.com/user-attachments/assets/aa289ece-3b84-46da-8c4f-ff54169e6be4)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Core Features
+- **Real-time Anomaly Detection**: Continuously monitors blockchain transactions for suspicious activities.
+- **Automatic Self-Destruct Mechanism**: Engages when threats are detected, ensuring asset safety.
+- **Instant Liquidity Conversion and Fund Recovery**: Swiftly converts assets to stable forms and returns them to the owner.
+- **Protected Wallet Creation**: Facilitates the creation of wallets with automated monitoring.
+- **Transaction Monitoring Dashboard**: Provides a user-friendly interface for tracking transaction histories.
 
-## Learn More
+![SaveMe Protocol Overview - visual selection (1)](https://github.com/user-attachments/assets/bc608e78-8a16-45b0-bde2-d4e8f1cc4ddf)
 
-To learn more about Next.js, take a look at the following resources:
+## Technical Architecture
+### Smart Contract Flow
+1. **AnomalyGuard Contract**: Central to detecting and responding to abnormal activities.
+2. **LiquidityPool**: Manages the conversion of assets to stable forms.
+3. **Wallet**: Stores and monitors user funds.
+4. **Protection Flow**:
+    - **Anomaly Detection**: Identifies potential threats.
+    - **Self-Destruct Mechanism**: Triggers protective actions.
+    - **Swap Tokens**: Converts assets via the LiquidityPool.
+    - **Return Funds to Owner**: Ensures user assets are secured.
+  
+![image](https://github.com/user-attachments/assets/de434712-f959-4219-b466-093a23cd12c6)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## User Actions
+- **Connect Wallet**: Initiate interaction with the protocol by connecting a crypto wallet.
+- **Create Protected Wallet**: Establish a wallet with built-in security features.
+- **Transfer Funds**: Move assets into the protected environment.
+- **Monitor Wallet**: Keep track of wallet activities and ensure security.
+- **View Transactions**: Access a detailed history of all transactions within the protocol.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ![SaveMe Protocol Overview - visual selection (3)](https://github.com/user-attachments/assets/d6cf0cce-6083-47c3-9a14-16118d63de7d)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+>>>>>>> b286bd90 (Addressing bugs)
