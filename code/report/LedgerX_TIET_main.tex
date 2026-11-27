@@ -1,0 +1,507 @@
+\documentclass{tietreport}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[
+  date=year,
+  style=alphabetic,
+  backend=biber,
+  sorting=nty,
+  maxnames=5,
+  minnames=3,
+  maxalphanames=4,
+  minalphanames=3,
+  backref=true,
+  doi=false,
+  isbn=false,
+  url=true,
+  eprint=false
+]{biblatex}
+\addbibresource{references.bib}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false
+}
+\setlist[itemize]{leftmargin=1.5em,itemsep=3pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em,itemsep=3pt,topsep=3pt}
+\renewcommand{\arraystretch}{1.2}
+
+\TitlePageHeader{UCS503P -- Software Engineering Project}
+\ProjectTitle{LedgerX -- Web3 Wallet Protection System}
+\ProjectSubTitle{A Decentralized Asset Protection Platform with Transaction Anomaly Detection}
+\author{%
+  \texttt{1024030433} Ishan Rehan\\
+  \texttt{1024030812} A S Danish\\
+  \texttt{1024030813} Shreyansh Dua\\
+  \texttt{1024030483} Shaurya Garg%
+}
+\TitlePageSubText{BE Computer Science and Engineering}
+\AdvisorName{Ms. Nisha Thakur}
+\TitlePageFooterText{{\large Project Report}\\[0.2cm]
+  \bfseries Computer Science and Engineering Department\\[0.15cm]
+  Thapar Institute of Engineering and Technology, Patiala%
+}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter{Introduction}
+
+\section{Background and Context}
+Blockchain platforms allow users to control digital assets through cryptographic
+wallets and smart contracts. Transactions are recorded on a distributed ledger
+and are generally difficult to reverse after confirmation. This property supports
+transparent settlement, but it also means that a mistaken or malicious transfer
+can cause permanent loss. Users therefore need tools that help them inspect
+wallet activity, recognize unusual transaction behaviour, and take protective
+action before or after a suspicious event.
+
+LedgerX is a Web3 wallet and asset-management project that combines a browser
+application, Ethereum-compatible smart contracts, and a Python-based anomaly
+detection service. The repository includes a Next.js client, Solidity contracts
+developed with Hardhat, and a FastAPI machine-learning service. The platform
+also contains token creation, token listing, liquidity-pool interaction,
+transaction history, and transfer-related functionality.
+
+\section{Problem Statement}
+A conventional wallet primarily provides signing and transaction submission.
+It does not necessarily explain whether a transaction is unusual relative to
+the wallet's historical behaviour. A separate monitoring and analysis layer
+can provide additional context. LedgerX addresses this problem by organizing
+wallet operations, transaction monitoring, anomaly scoring, and emergency
+asset-exit mechanisms into one project.
+
+The project should not be interpreted as a guarantee that all attacks can be
+prevented or that every asset can always be recovered. Detection depends on
+available transaction data and model behaviour; on-chain actions depend on
+contract permissions, liquidity, network conditions, and successful execution.
+
+\section{Project Objectives}
+The objectives of LedgerX are:
+\begin{enumerate}
+  \item Provide a web interface for wallet connection and common wallet/token
+  operations.
+  \item Implement Solidity contracts for token creation, wallet custody,
+  token transfer, liquidity management, and guarded emergency exit.
+  \item Build a transaction anomaly detection pipeline using Python data
+  processing and an Isolation Forest model.
+  \item Expose anomaly detection functionality through a FastAPI service.
+  \item Provide transaction and token views so users can inspect activity.
+  \item Document the architecture, test strategy, limitations, and deployment
+  requirements of the integrated project.
+\end{enumerate}
+
+\section{Scope}
+The delivered repository contains the frontend, contract, and model components.
+The report distinguishes implemented modules from the intended end-to-end
+workflow. In particular, the diagrams supplied with the project illustrate the
+proposed full protection journey; they should not be read as proof that every
+step is automatically connected in production. The machine-learning service
+returns anomaly analysis, while automatic invocation of the Solidity emergency
+exit requires a secure integration, authorization policy, and operational
+monitoring layer.
+
+\chapter{Methodology and Design}
+
+\section{Development Methodology}
+The project is divided into three main engineering areas: client application,
+smart-contract layer, and anomaly-detection service. This modular structure
+allows each area to be developed and tested independently before integration.
+The frontend communicates with wallet providers and application APIs. The
+contract layer implements asset custody and exchange-related operations.
+The model service processes transaction features and returns anomaly results.
+
+\section{System Architecture}
+\subsection{High-Level Design}
+The client is implemented using Next.js and React. Wallet connectivity is
+configured using Wagmi and RainbowKit, while Ethers is included for contract
+interaction. Server-side API routes handle operations such as anomaly requests,
+crypto-related requests, AI-assisted transfer parsing, and token metadata
+persistence. MongoDB is used by the token metadata API.
+
+The model service is implemented in Python. Its pipeline fetches or accepts
+transaction data, cleans and transforms the data, applies an Isolation Forest
+detector, and serializes the results. FastAPI exposes service endpoints.
+The smart-contract project uses Solidity and Hardhat, with OpenZeppelin
+utilities for safer token transfers and reentrancy protection.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{deployment.png}
+\caption{LedgerX deployment architecture supplied with the project}
+\label{fig:deployment}
+\end{figure}
+
+\subsection{Component Architecture}
+Figure~\ref{fig:components} shows the major software components and their
+relationships. The user-facing pages call reusable wallet and API utilities.
+The anomaly service is a separate Python component, and the Solidity contracts
+are deployed to an EVM-compatible network.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]{component.png}
+\caption{LedgerX component diagram}
+\label{fig:components}
+\end{figure}
+
+\subsection{Data Flow}
+The data-flow diagram summarizes the movement of user and transaction
+information between the wallet, analysis service, and supporting data stores.
+Transaction details are transformed into features before they are evaluated
+by the anomaly detector. The resulting classification can be presented to
+the user or used by a separately authorized protection workflow.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{dfd.png}
+\caption{LedgerX data-flow diagram}
+\label{fig:dfd}
+\end{figure}
+
+\section{Technical Stack}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.23\textwidth}X}
+\toprule
+Layer & Technologies observed in the repository\\
+\midrule
+Frontend & Next.js 14, React 18, TypeScript, CSS, Tailwind-related tooling\\
+Wallet integration & Wagmi, RainbowKit, Viem, Ethers\\
+Backend APIs & Next.js route handlers and FastAPI\\
+Smart contracts & Solidity, Hardhat, OpenZeppelin contracts\\
+Anomaly detection & Python, Pandas, NumPy, scikit-learn, Isolation Forest\\
+Persistence & MongoDB client for token metadata\\
+External data & Etherscan API integration and cryptocurrency price API integration\\
+Development & npm, Node.js 22 target, Python environment, Git\\
+\bottomrule
+\end{tabularx}
+\caption{Technology stack}
+\label{tab:stack}
+\end{table}
+
+\section{Use-Case Model}
+The primary actor is the wallet owner, who can connect a wallet, create or
+manage protected wallet functionality, transfer funds, monitor activity, and
+view transactions. An attacker is represented as an external actor in the
+design diagram to model unauthorized access attempts. Blockchain services
+participate in token and liquidity operations.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{usecase.png}
+\caption{LedgerX use-case diagram}
+\label{fig:usecase}
+\end{figure}
+
+\section{Workflow Models}
+The activity and sequence diagrams show the intended protection workflow:
+wallet connection, protected wallet setup, funding, monitoring, threat
+assessment, emergency exit, and transaction review. The no-threat branch
+returns to monitoring. The threat branch proceeds to the emergency action
+and liquidity-pool interaction as represented in the supplied design.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.70\textwidth,height=0.78\textheight,keepaspectratio]{activity.png}
+\caption{LedgerX activity diagram}
+\label{fig:activity}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{sequential.png}
+\caption{LedgerX sequence diagram}
+\label{fig:sequence}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.68\textheight,keepaspectratio]{swimlane.png}
+\caption{LedgerX swimlane workflow}
+\label{fig:swimlane}
+\end{figure}
+
+\section{Class and Contract Model}
+The class diagram supplied for the proposal identifies the conceptual
+relationship between an owner, wallet, anomaly guard, and liquidity pool.
+The repository implements these responsibilities through separate Solidity
+contracts rather than one monolithic contract.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth,height=0.68\textheight,keepaspectratio]{classdiagram.png}
+\caption{Conceptual class diagram}
+\label{fig:class}
+\end{figure}
+
+\section{Implementation Details}
+
+\subsection{Frontend and Wallet Interface}
+The client is organized as a Next.js application with pages for the dashboard,
+wallet, token creation, token listing, transfers, transactions, liquidity, and
+graph-oriented views. Reusable components include navigation, wallet
+connection, transaction listing, and trading-related interface components.
+Wallet configuration is defined in the Wagmi setup, which includes a local
+Hardhat chain and supported public networks. The application reads contract
+addresses from environment variables and supplies local development defaults.
+
+\subsection{Wallet and Token Smart Contracts}
+The Solidity project includes the following contracts:
+\begin{itemize}
+  \item \textbf{Wallet:} maintains per-user ERC-20 token balances. Deposits
+  transfer tokens into contract custody using \texttt{SafeERC20}; withdrawals
+  transfer tokens back to the caller; internal transfers update the ledger.
+  \item \textbf{CustomToken:} defines the ERC-20 token implementation used by
+  the token creation flow.
+  \item \textbf{TokenFactory:} deploys a new custom token and emits a
+  \texttt{TokenCreated} event containing token metadata and creator details.
+  \item \textbf{TransferTo:} transfers ERC-20 tokens from the caller to a
+  recipient using \texttt{safeTransferFrom}.
+  \item \textbf{LiquidityPool:} implements token/ETH liquidity provision and
+  swaps using a constant-product pricing formula with a 0.3\% fee.
+  \item \textbf{AnomalyGuardWallet:} provides an owner-controlled emergency
+  exit. It attempts to swap held tokens through the configured pool and, if
+  the swap fails, transfers the tokens to the owner as a fallback.
+\end{itemize}
+
+\subsection{Liquidity Pool Design}
+The liquidity pool maintains explicit token and ETH reserves. Liquidity
+providers receive shares proportional to the pool contribution. A minimum
+liquidity amount is locked on initial provisioning. Swaps use the
+constant-product formula:
+\[
+  \mathrm{amountOut} =
+  \frac{\mathrm{amountInWithFee}\cdot \mathrm{reserveOut}}
+       {\mathrm{reserveIn}\cdot 1000+\mathrm{amountInWithFee}},
+  \qquad
+  \mathrm{amountInWithFee}=997\cdot\mathrm{amountIn}.
+\]
+The contract uses slippage bounds and a reentrancy guard. These mechanisms
+reduce specific classes of implementation risk but do not eliminate all
+economic or smart-contract risks.
+
+\subsection{Anomaly Guard and Emergency Exit}
+The guard contract stores an owner, an ERC-20 token address, and a liquidity
+pool address. The owner can forward tokens or ETH into the contract. The
+emergency exit attempts to convert the token balance to ETH through the pool.
+If the swap reverts, the fallback path returns the token balance to the owner.
+This is an owner-triggered contract function in the inspected implementation;
+it is not, by itself, an autonomous on-chain detector.
+
+\subsection{Machine-Learning Pipeline}
+The model service is structured as a sequence of data acquisition, cleaning,
+transformation, model training, model persistence, and anomaly inference.
+The main orchestration module uses an Etherscan API helper, data-cleaning and
+data-transformation classes, and an Isolation Forest detector. The repository
+also contains serialized model artifacts and example transaction/result data.
+
+Isolation Forest is an unsupervised anomaly-detection method that isolates
+observations using randomized partitioning. Observations that are isolated
+with shorter paths are more likely to be anomalous. The method is suitable
+for exploratory transaction screening because it does not require a complete
+set of labelled attack examples \cite{liu2008isolation,liu2012isolation}.
+Its output is dependent on feature selection, training data, contamination
+settings, and threshold choices.
+
+\subsection{FastAPI Service}
+The model API defines transaction input structures with fields such as hash,
+timestamp, value, gas, and gas price. It provides detection and model-training
+functionality. Training is guarded by a server-side key; if the key is not
+configured, training is disabled. The API limits transaction-list size and
+configures CORS through environment settings. These controls help constrain
+requests to the service.
+
+\subsection{Application API Routes and Persistence}
+The Next.js application contains API routes for anomaly requests, crypto
+information, AI-assisted transfer parsing, and token metadata storage. The
+token-saving route validates token addresses and bounds metadata fields before
+using MongoDB. Optional image uploads are routed to ImgBB when an API key is
+configured. External services therefore require correctly configured secrets
+and network access.
+
+\section{Security Considerations}
+The project uses OpenZeppelin's \texttt{SafeERC20} and
+\texttt{ReentrancyGuard} in relevant contracts. Input validation is present in
+selected API routes. Environment variables are used for API credentials,
+database connection strings, and deployment addresses. The deployment
+documentation also identifies environment-specific build requirements.
+
+Security review should additionally consider owner-key compromise, malicious
+tokens, price manipulation, liquidity exhaustion, front-running, oracle
+integrity, model evasion, training-data poisoning, API abuse, and incorrect
+contract address configuration. A production deployment should use
+independent smart-contract auditing, restricted administrative access,
+monitoring, and a carefully tested incident-response policy.
+
+\chapter{Results and Evaluation}
+
+\section{Implementation Inventory}
+The repository contains the following major implementation artifacts:
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{p{0.28\textwidth}X}
+\toprule
+Area & Evidence in the supplied repository\\
+\midrule
+Frontend & Next.js pages, wallet components, hooks, API route handlers\\
+Contracts & Wallet, CustomToken, TokenFactory, TransferTo, LiquidityPool,
+AnomalyGuardWallet\\
+Model service & FastAPI app, model orchestration, Isolation Forest detector,
+data processing modules\\
+Model artifacts & Serialized Isolation Forest, scaler, thresholds, example
+transaction and result JSON files\\
+Tests & Python tests for detection, API, data cleaning, integration, and
+visualization; a Hardhat liquidity-pool test file\\
+Deployment & Deployment notes and Hardhat Ignition deployment artifacts\\
+\bottomrule
+\end{tabularx}
+\caption{Implementation inventory based on the project ZIP}
+\label{tab:inventory}
+\end{table}
+
+\section{Testing Methodology}
+The repository includes Python test modules covering anomaly detection,
+API behaviour, ARIMA functionality, data cleaning, detection quality,
+integration, and visualization. The Solidity project includes a test file
+for the liquidity pool. These files provide a test foundation; the presence
+of test files alone does not establish that every test passes in the current
+environment.
+
+A complete verification run should include:
+\begin{enumerate}
+  \item Python unit tests for cleaning, transformation, model inference, and
+  API validation.
+  \item Hardhat tests for deposits, withdrawals, swaps, slippage, reserve
+  accounting, and emergency-exit fallback behaviour.
+  \item Frontend production build and manual checks of wallet connection,
+  network selection, API error states, and transaction views.
+  \item Integration tests using a local Hardhat network and controlled
+  transaction examples.
+\end{enumerate}
+
+\section{Example Anomaly Output}
+The supplied \texttt{results.json} contains example records illustrating a
+normal transaction and an anomalous transaction. The anomalous example is
+flagged with high-value transaction, high gas consumption, high gas price,
+and unusual value/gas ratio indicators. These are example output records and
+are not a benchmark report or a measured accuracy evaluation.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{p{0.30\textwidth}XX}
+\toprule
+Example record & Classification & Reported indicators\\
+\midrule
+Transaction \texttt{0x123...} & Normal & No anomalies detected\\
+Transaction \texttt{0x456...} & Anomalous & High value, high gas usage,
+high gas price, unusual value/gas ratio\\
+\bottomrule
+\end{tabularx}
+\caption{Illustrative records in the supplied model results}
+\label{tab:examples}
+\end{table}
+
+\section{Performance Metrics}
+No reproducible latency, throughput, precision, recall, F1-score, or
+false-positive benchmark is asserted in this report because the supplied
+materials do not provide a documented evaluation run with a defined test
+dataset and measurement procedure. These metrics should be measured before
+making quantitative performance claims.
+
+Recommended evaluation measures include:
+\begin{itemize}
+  \item \textbf{Precision:} fraction of flagged transactions that are truly
+  anomalous in a labelled evaluation set.
+  \item \textbf{Recall:} fraction of known anomalous transactions detected.
+  \item \textbf{False-positive rate:} fraction of normal transactions
+  incorrectly flagged.
+  \item \textbf{Inference latency:} elapsed time from API request receipt to
+  anomaly response.
+  \item \textbf{Contract execution success:} proportion of controlled
+  emergency-exit scenarios completing the intended on-chain action.
+\end{itemize}
+
+\section{Analysis and Current Limitations}
+The project demonstrates a multi-layer implementation spanning frontend,
+backend APIs, machine-learning analysis, and Solidity contracts. Its modular
+design supports independent development and future integration. The key
+limitation is that anomaly classification and on-chain emergency exit are
+separate capabilities unless an authenticated service or user-authorized
+workflow connects them. A machine-learning result cannot directly execute
+a smart contract without a transaction signer, keeper/oracle mechanism, or
+explicit user action.
+
+Other limitations include dependence on external APIs and environment
+configuration, the need for robust labelled evaluation data, the risk of
+false alarms, and the economic constraints of liquidity-based recovery.
+The fallback path in the guard contract returns tokens if the pool swap
+fails; it does not guarantee conversion into a stable asset.
+
+\chapter{Conclusion}
+
+\section{Summary of Work}
+LedgerX is a Web3 asset-management and monitoring project combining a
+Next.js/React interface, Solidity smart contracts, and a Python anomaly
+detection service. The repository includes wallet and token operations,
+liquidity-pool functionality, transaction-related interfaces, a FastAPI
+service, and an Isolation Forest-based detection pipeline. The supplied
+design diagrams document the intended wallet-protection workflow and
+system structure.
+
+\section{Key Findings}
+\begin{itemize}
+  \item A modular architecture separates user interaction, blockchain
+  execution, and transaction analysis.
+  \item The Solidity implementation includes guarded token custody,
+  constant-product pool swaps, slippage checks, and an owner-controlled
+  emergency exit.
+  \item The anomaly-detection pipeline provides a foundation for screening
+  transaction behaviour, but its effectiveness must be established through
+  labelled and reproducible evaluation.
+  \item Automatic threat detection and contract execution require a secure
+  integration layer and should not be assumed solely from the presence of
+  the individual modules.
+\end{itemize}
+
+\section{Future Work and Recommendations}
+\begin{enumerate}
+  \item Integrate model alerts with a secure, auditable transaction
+  authorization workflow.
+  \item Add labelled datasets and report precision, recall, F1-score,
+  false-positive rate, and inference latency.
+  \item Extend contract tests to cover adversarial tokens, reentrancy,
+  slippage, pool depletion, and emergency-exit edge cases.
+  \item Add independent smart-contract audits and formal verification for
+  critical asset-handling functions.
+  \item Improve wallet-level monitoring, alert delivery, and transaction
+  explanations.
+  \item Add deployment automation, secrets management, structured logs,
+  and health monitoring for all services.
+\end{enumerate}
+
+\section{Final Remarks}
+LedgerX demonstrates how Web3 interfaces, smart contracts, and machine
+learning can be brought together in a software-engineering project focused
+on digital-asset safety. The work provides a foundation for further
+integration and evaluation. Responsible deployment requires careful
+security review, transparent limitations, and measured evidence of
+detection and recovery performance.
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
